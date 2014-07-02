@@ -28,6 +28,7 @@ def login():
         user = User.query.filter_by(username = form.username.data).first()
         if user is not None and user.check_password(form.password.data):
             login_user(user)
+            print("login");
             return redirect(request.args.get('next') or url_for('dashboard'))
         else:
             form.password.errors.append('Invalid Crednetials')

@@ -64,6 +64,7 @@
 				</div>
 				<div class="panel-body">
 					<form action="" method="post" name="login" role="form">
+					{{form.hidden_tag()}}
 						<div class="form-group">
 							<label for="exampleInputEmail1">Email</label> 
 							{{form.username(size=50,type="email",class="form-control", style="border-radius: 0px", placeholder="Enter email")}}
