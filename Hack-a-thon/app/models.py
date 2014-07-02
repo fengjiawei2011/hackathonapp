@@ -29,8 +29,8 @@ class User(sqldb.Model):
     def is_authenticated(self):
         return True
         
-    def is_active(self):
-        return self.active
+    def is_admin(self):
+        return self.role
     
     def get_id(self):
         return unicode(self.id)
