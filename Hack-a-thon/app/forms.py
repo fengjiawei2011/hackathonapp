@@ -29,4 +29,5 @@ class RegisterForm(Form):
     username = TextField('username', [Required('Email is required'), validators.Email(), unique_email])
     password = PasswordField('password', validators = [Required('Password is required')])
     password2 = PasswordField('password2', validators = [Required('Please Retype your password'), retype_password_validate])
-
+    first_name = TextField('first_name', validators = [Required('First name is required')])
+    last_name = TextField('last_name', validators = [Required('Last name is required')])

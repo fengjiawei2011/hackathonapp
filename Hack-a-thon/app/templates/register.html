@@ -12,6 +12,16 @@
 	<form action="" method="post" name="register">
 		{{form.hidden_tag()}}
 		<p>
+			Frist Name<br> {{form.first_name(size=50)}}<br> {% for error
+			in form.errors.first_name %} <span style="color: red">{{ error
+				}}</span> {% endfor %}
+		</p>
+		<p>
+			Last Name<br> {{form.last_name(size=50)}}<br> {% for error
+			in form.errors.last_name %} <span style="color: red">{{ error
+				}}</span> {% endfor %}
+		</p>				
+		<p>
 			User Name<br> {{form.username(size=50)}}<br> {% for error
 			in form.errors.username %} <span style="color: red">{{ error
 				}}</span> {% endfor %}
