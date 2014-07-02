@@ -21,7 +21,7 @@ def load_user(id):
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if g.user is not None and g.user.is_authenticated():
-        return redirect(request.args.get('next') or url_for('home'))
+        return redirect(request.args.get('next') or url_for('dashboard'))
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -73,11 +73,8 @@ def logout():
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
-    # TODO 
-    #===========================================================================
-    # if g.user is not None and g.user.is_authenticated():
-    #     return redirect(request.args.get('next') or url_for('home'))
-    #===========================================================================
+    if g.user is not None and g.user.is_authenticated():
+        return redirect(url_for('dashboard'))
     def add_user(name, pwd):
         user = User(username=name, password=pwd)
         sqldb.session.add(user)
@@ -86,11 +83,4 @@ def register():
     if form.validate_on_submit():
         add_user(form.username.data, form.password.data)
         flash('OKAY')
-#         user = User.query.filter_by(username = form.username.data).first()
-#         if user is not None and user.check_password(form.password.data):
-#             login_user(user)
-#             return redirect(request.args.get('next') or url_for('home'))
-#         else:
-#             form.password.errors.append('Invalid Crednetials')
-#             flash('Invalid login. Please try again.')    
     return render_template("register.html", form = form)
