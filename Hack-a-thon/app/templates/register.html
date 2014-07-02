@@ -9,7 +9,7 @@
 	</ul>
 	{% endif %} {% endwith %}
 
-	<form action="" method="post" name="login">
+	<form action="" method="post" name="register">
 		{{form.hidden_tag()}}
 		<p>
 			User Name<br> {{form.username(size=50)}}<br> {% for error
@@ -22,10 +22,15 @@
 				error }}</span> {% endfor %}
 		</p>
 		<p>
+			Retype Password<br> {{form.password2(size=50)}}<br>
+			{% for error in form.errors.password2 %} <span style="color: red">{{
+				error }}</span> {% endfor %}
+		</p>
+		<p>
 			<input type="submit" value="Register">
 			<input type="reset" value="Reset">
 		</p>
-		Already Have an Login? Click Here to Login
+		<a href="/login"> Already Have an Login? Click Here to Login </a>
 	</form>
 </body>
 </html>
