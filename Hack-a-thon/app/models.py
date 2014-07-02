@@ -5,7 +5,6 @@ Created on Jul 2, 2014
 '''
 from app import sqldb
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
 
 class User(sqldb.Model):
     id = sqldb.Column(sqldb.Integer, primary_key=True)

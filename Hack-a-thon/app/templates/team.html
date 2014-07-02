@@ -1,0 +1,26 @@
+<html>
+<body>
+	<h1>Add Team</h1>
+
+	{% with messages = get_flashed_messages() %} {% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li> {% endfor %}
+	</ul>
+	{% endif %} {% endwith %}
+
+	<form action="" method="post">
+		<p>
+			Team Name<br> <input name="name"> <br> 
+		</p>
+		<p>
+			Member1 <br> <input name="member"><br>
+			Member2 <br> <input name="member"><br>
+			Member3 <br> <input name="member"><br>
+		</p>
+		<p>
+			<input type="submit" value="Add">
+		</p>
+	</form>
+</body>
+</html>
