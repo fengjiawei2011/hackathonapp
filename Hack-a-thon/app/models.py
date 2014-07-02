@@ -11,6 +11,8 @@ class User(sqldb.Model):
     role = sqldb.Column(sqldb.Boolean, nullable=False, default=False)  # True for admin, False for basic user
     username = sqldb.Column(sqldb.String(50), nullable=False, unique=True)
     password = sqldb.Column(sqldb.String(255), nullable=False)
+    first_name = sqldb.Column(sqldb.String(255), nullable=True)
+    last_name = sqldb.Column(sqldb.String(255), nullable=True)
     events = sqldb.relationship('Event', backref = 'admin', lazy = 'dynamic')
     teams = sqldb.relationship('Team', backref = 'creator', lazy = 'dynamic')
     
