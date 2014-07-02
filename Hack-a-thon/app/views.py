@@ -26,9 +26,9 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username = form.username.data).first()
-        if user is not None and user.is_active() and user.check_password(form.password.data):
+        if user is not None and user.check_password(form.password.data):
             login_user(user)
-            return redirect(request.args.get('next') or url_for('dashboard'))
+            return redirect(request.args.get('next') or url_for('home'))
         else:
             form.password.errors.append('Invalid Crednetials')
             flash('Invalid login. Please try again.')

@@ -32,6 +32,9 @@ class User(sqldb.Model):
     def is_admin(self):
         return self.role
     
+    def is_active(self):
+        return True
+    
     def get_id(self):
         return unicode(self.id)
 
