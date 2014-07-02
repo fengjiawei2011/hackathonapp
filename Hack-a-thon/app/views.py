@@ -40,3 +40,9 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+
+@app.route('/register', methods = ['GET', 'POST'])
+def register():
+    form = LoginForm()
+    return render_template("register.html", form = form)

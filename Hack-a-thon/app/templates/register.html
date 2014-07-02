@@ -1,0 +1,31 @@
+<html>
+<body>
+	<h1>Register</h1>
+
+	{% with messages = get_flashed_messages() %} {% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li> {% endfor %}
+	</ul>
+	{% endif %} {% endwith %}
+
+	<form action="" method="post" name="login">
+		{{form.hidden_tag()}}
+		<p>
+			User Name<br> {{form.username(size=50)}}<br> {% for error
+			in form.errors.username %} <span style="color: red">{{ error
+				}}</span> {% endfor %}
+		</p>
+		<p>
+			Password<br> {{form.password(size=50)}}<br>
+			{% for error in form.errors.password %} <span style="color: red">{{
+				error }}</span> {% endfor %}
+		</p>
+		<p>
+			<input type="submit" value="Register">
+			<input type="reset" value="Reset">
+		</p>
+		Already Have an Login? Click Here to Login
+	</form>
+</body>
+</html>
