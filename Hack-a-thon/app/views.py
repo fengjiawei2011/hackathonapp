@@ -75,12 +75,12 @@ def logout():
 def register():
     if g.user is not None and g.user.is_authenticated():
         return redirect(url_for('dashboard'))
-    def add_user(name, pwd):
-        user = User(first_name=first_name, last_name=last_name, username=name, password=pwd)
+    def add_user(first_name, last_name, username, pwd):
+        user = User(first_name=first_name, last_name=last_name, username=username, password=pwd)
         sqldb.session.add(user)
         sqldb.session.commit()
     form = RegisterForm()
     if form.validate_on_submit():
-        add_user(form.first_name, form.last_name, form.username.data, form.password.data)
+        add_user(form.first_name.data, form.last_name.data, form.username.data, form.password.data)
         flash('OKAY')
     return render_template("register.html", form = form)
