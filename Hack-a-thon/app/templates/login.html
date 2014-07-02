@@ -16,10 +16,12 @@
 
 <script type="text/javascript">
  	$(function(){
+ 		$('#signupcontainer').hide();
+ 		
  		$('#signup').click(function(){
  			//alert("aa");
  			$('#signincontainer').hide();
- 			//$('#signupcontainer').display();
+ 			$('#signupcontainer').fadeIn(1500);
  		});
  	});
 </script>
@@ -81,14 +83,14 @@
 								id="exampleInputPassword1" placeholder="Password"> -->
 						</div>
 						<input type="submit" class="btn btn-sm btn-default" value="Sign in">
-						<button id="signup" type="submit" class="btn btn-sm btn-default">Sign up</button>
+						<input type="button" id="signup" class="btn btn-sm btn-default"  value="Sign up">
 					</form>
 				</div>
 			</div>
 		</div>
 		
 		
-		<div id="signupcontainer" class="row centered-form" style="display: none;">
+		<div id="signupcontainer" class="row centered-form">
         <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
         	<div class="panel panel-default">
         		<div class="panel-heading">
@@ -96,32 +98,38 @@
 			 			</div>
 			 			<div class="panel-body">
 			    		<form role="form">
+			    			{{form.hidden_tag()}}
 			    			<div class="row">
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
-			                <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name">
+			    					{{form.first_name(name="first_name",id="first_name",class="form-control input-sm",placeholder="First Name")}}
+			               <!--  <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name"> -->
 			    					</div>
 			    				</div>
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
-			    						<input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+			    					{{form.last_name(name="last_name",id="last_name",class="form-control input-sm",placeholder="Last Name")}}
+			    						<!-- <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name"> -->
 			    					</div>
 			    				</div>
 			    			</div>
 
 			    			<div class="form-group">
-			    				<input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+			    				{{form.username(type="email" ,name="username" ,id="email" ,class="form-control input-sm" ,placeholder="Username")}}
+			    				<!-- <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address"> -->
 			    			</div>
 
 			    			<div class="row">
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
-			    						<input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+			    						{{form.password(type="password",name="password",id="password",class="form-control input-sm",placeholder="Password")}}
+			    						<!-- <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password"> -->
 			    					</div>
 			    				</div>
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
-			    						<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+			    					{{form.password2(type="password",name="password_confirmation",id="password_confirmation",class="form-control input-sm",placeholder="Confirm Password")}}
+			    						<!-- <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password"> -->
 			    					</div>
 			    				</div>
 			    			</div>
