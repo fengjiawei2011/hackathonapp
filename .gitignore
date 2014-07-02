@@ -57,3 +57,6 @@ flask/
 
 # DB Mirgration stuff:
 migrations/
+
+# Mac file
+.DS_Store
