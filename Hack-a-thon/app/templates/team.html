@@ -67,8 +67,10 @@ body{
     <div class="row">
         <div class="form-group">
     		<div class="input-group input-group-option col-xs-5" style="padding: 15px;">
+    		<form action="" method="post">
+ 			{{form.hidden_tag()}}
 			<h3>Team Name</h3>
-    			<input type="text" name="teamname" id="teamname"class="form-control input-sm" placeholder="Team name">
+    			<input type="text" name="teamname" id="teamname" class="form-control input-sm" placeholder="Team name">
 
 
 
@@ -88,7 +90,8 @@ body{
             <!-- Form actions -->
             <div class="form-group">
               <div class="col-md-12 text-center">
-                <button type="submit" class="btn btn-primary btn-lg">Save</button>
+                <input type="submit" class="btn btn-primary btn-lg" value="Save">
+                </form>
               </div>
             </div>
           </fieldset>
