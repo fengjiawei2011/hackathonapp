@@ -28,7 +28,6 @@ def login():
         user = User.query.filter_by(username = form.username.data).first()
         if user is not None and user.check_password(form.password.data):
             login_user(user)
-            print("login");
             return redirect(request.args.get('next') or url_for('dashboard'))
         else:
             form.password.errors.append('Invalid Crednetials')
@@ -41,7 +40,11 @@ def login():
 @app.route('/event/<int:event_id>/team', methods = ['GET', 'POST'])
 @login_required
 def add_team(event_id):
-    if request.method == 'POST':
+    event = Event.query.get(event_id)
+    if event.teams.count() >= event.max_team:
+        flash('Sorry, no more space available.')
+        
+    elif request.method == 'POST':
         user = g.user
         team = Team(user_id = user.id, event_id = event_id, name = request.form.get('name'))
         sqldb.session.add(team)
@@ -49,15 +52,43 @@ def add_team(event_id):
         
         members = request.form.getlist('member')
         for m in members:
-            member = Member(team_id = team.id, member_name = m)
-            sqldb.session.add(member)
+            if m!="":
+                member = Member(team_id = team.id, member_name = m)
+                sqldb.session.add(member)
         
         sqldb.session.commit()
         
         return request.form.get('name') + ' is  added.'
-    return render_template("team.html")
+    return render_template("team.html",
+                           n = event.max_member_per_team)
 
 
+@app.route('/team/<int:team_id>', methods = ['GET', 'POST'])
+@login_required
+def edit_team(team_id):
+    #TODO
+    team = Team.query.get(team_id)
+    user = g.user
+    if request.method == 'POST' and user.id == team.user_id:        
+        team.name = request.form.get('name')
+        sqldb.session.add(team)
+        sqldb.session.commit()
+        
+        members = request.form.getlist('member')
+        for m in members:
+            if m!="":
+                member = Member(team_id = team.id, member_name = m)
+                sqldb.session.add(member)
+        
+        sqldb.session.commit()
+        
+        return request.form.get('name') + ' is  updated.'
+    
+    return render_template("team.html",
+                           team = team,
+                           n = team.event.max_member_per_team)
+    
+    
 @app.route('/')
 @login_required
 def dashboard():

@@ -14,9 +14,9 @@
 			Team Name<br> <input name="name"> <br> 
 		</p>
 		<p>
-			Member1 <br> <input name="member"><br>
-			Member2 <br> <input name="member"><br>
-			Member3 <br> <input name="member"><br>
+		{% for i in range(n) %}
+			Member {{i+1}} <br> <input name="member"><br>
+		{% endfor %}
 		</p>
 		<p>
 			<input type="submit" value="Add">
