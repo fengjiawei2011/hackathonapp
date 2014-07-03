@@ -1,5 +1,7 @@
 <html>
-<body><h1>
+<body style="background-color:yellow;">
+<center>
+<!-- <h1>
 	{% if not team %}
 	Add Team
 	{% else %}
@@ -40,6 +42,70 @@
 		<p>
 			<input type="submit" value="Save">
 		</p>
-	</form>
+	</form> -->
+	
+	
+	<div class="container">
+	<div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="well well-sm">
+          <form class="form-horizontal" action="" method="post">
+          <fieldset>
+            <legend class="text-center"><h1>
+	{% if not team %}
+	Add Team
+	{% else %}
+	Edit Team
+	{% endif %}</h1></legend>
+	
+	
+	{% with messages = get_flashed_messages() %} {% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li> {% endfor %}
+	</ul>
+	{% endif %} {% endwith %}
+	
+	<!-- Team Name -->
+	<div class="container">
+	<h3>Team Name</h3>
+    <div class="row">
+        <div class="form-group form-group-options col-xs-11 col-sm-8 col-md-4">
+    		<div class="input-group input-group-option col-xs-12">
+    			<input type="text" name="option[]" class="form-control" placeholder="Team name">
+    			<span class="input-group-addon input-group-addon-remove">
+    				<span class="glyphicon glyphicon-remove"></span>
+    			</span>
+    		</div>
+    	</div>
+    </div>
+</div>
+    
+            <!-- group members input-->
+            <p>
+		{% for i in range(n) %}
+			Member {{i+1}} <br> 
+			{% if team and i < team.members.count() %}
+			{{form.member(value=team.members[i].member_name)}} 
+			{%else %}
+			{{form.member(value="")}}
+			{%endif%}<br>
+		{% endfor %}
+		</p>
+    
+    
+            <!-- Form actions -->
+            <div class="form-group">
+              <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-primary btn-lg">Save</button>
+              </div>
+            </div>
+          </fieldset>
+          </form>
+        </div>
+      </div>
+	</div>
+</div>
+</center>
 </body>
 </html>
