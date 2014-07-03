@@ -40,8 +40,8 @@ class TeamForm(Form):
 # @author alvin_yau
 class EventForm(Form):
     name = TextField('name', [Required('Name is required')])
-    starttime = DateTimeField('name', [Required("Start time must be in Date Time Format. format='%Y-%m-%d %H:%M:%S'")])
-    endtime = DateTimeField('name', [Required("End time Must be in Date Time Format format='%Y-%m-%d %H:%M:%S'")])
+    starttime = TextField('name', [Required("Start time must be in Date Time Format. format='%Y-%m-%d %H:%M:%S'")])
+    endtime = TextField('name', [Required("End time Must be in Date Time Format format='%Y-%m-%d %H:%M:%S'")])
     location = TextField('name', [Required('Location is required')])
     max_team = IntegerField('name', [Required('Max Team must be an integer.')])
     max_member_per_team = IntegerField('max_member_per_team', [Required('Max Number Per Team must be an integer')])
