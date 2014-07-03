@@ -119,7 +119,7 @@ def delete_team(team_id):
        
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/<int:page>', methods = ['GET', 'POST'])
-@login_required
+##@login_required
 def dashboard(page=1):
     user = g.user
     events = Event.query.order_by(Event.starttime.desc()).paginate(page, 5, False)
@@ -213,5 +213,6 @@ def delete_event(event_id):
     return render_template("event_view.html",
                            user = user,
                            event = event)
+
 
 

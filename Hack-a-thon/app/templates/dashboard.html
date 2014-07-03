@@ -203,13 +203,18 @@
 <script type="text/javascript">
 var month = ['Jan', 'Feb', 'Mar','Apil','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 $(function(){
-	$('.navbar-nav li').addClass('active');
+	//$('.navbar-nav li').addClass('active');
 	
 	$('.glyphicon-remove').click(function(){
+		var id = $(this).parents('.event-list').attr('id');
 		$.ajax({
-			url : '/'
-		});
-		$(this).parents('.event-list').fadeOut(1200);
+			url : '/event/'+ id ,
+			type : 'POST',
+			success : function(data){
+				console.log(data);
+				if(data === "success") $(this).parents('.event-list').fadeOut(1200); 
+			}
+		});	
 	});
 	
 	//$('.glyphicon-remove').parents('.event-list')
@@ -260,7 +265,7 @@ $(function(){
 	 {% for event in events.items %}
 		<div class="row" >
 			<div class="col-xs-12">
-				<ul class="event-list">
+				<ul class="event-list" id='{{event.id}}'>
 					<li>
 						<time datetime="{{event.starttime}}">
 							<span class="day">5</span>
