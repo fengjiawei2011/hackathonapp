@@ -1,8 +1,23 @@
 
 <html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+<!-- <script src="{ url_for('static', filename = 'js/jquery.min.js') }}"></script> -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+</head>
+
 <body>
-	<!--<h1>Create Event</h1>
-<html>
+{% include 'navbar.html' %}
+<!--<html>
 <head>
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -49,7 +64,7 @@
 			<input type="submit" value="Add">
 		</p>
 	</form>	 -->
-	{% include 'navbar.html' %}
+	
 	<center>
 		<div class="container">
 			<div class="row">
@@ -59,7 +74,7 @@
 							{{form.hidden_tag()}}
 							<fieldset>
 								<legend class="text-center">
-									<h1>Create Event</h1>
+									<br><br><h1>Create Event</h1>
 								</legend>
 
 								<!--Event Name input-->
