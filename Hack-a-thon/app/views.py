@@ -89,11 +89,14 @@ def edit_team(team_id):
                            n = team.event.max_member_per_team)
     
     
-@app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
+@app.route('/<int:page>', methods = ['GET', 'POST'])
 @login_required
-def dashboard():
+def dashboard(page=1):
     user = g.user
-    return user.username + "Welcome to dashboard"
+    events = Event.query.order_by(Event.starttime.desc()).paginate(page, 5, False)
+    return render_template("dashboard.html",
+                           events = events)
     
     
 @app.route('/logout')

@@ -1,0 +1,20 @@
+<html>
+<body>
+	<h1>Events</h1>
+
+	{% with messages = get_flashed_messages() %} {% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li> {% endfor %}
+	</ul>
+	{% endif %} {% endwith %}
+	
+	{% for event in events.items %}
+	{{event.name}} | {{event.starttime}} | {{event.endtime}} <br>
+	{% endfor %}
+	
+	{% if events.has_prev %}<a href="{{ url_for('dashboard', page = events.prev_num) }}">Prev</a>{% endif %}
+	{% if events.has_next %}<a href="{{ url_for('dashboard', page = events.next_num) }}">Next</a>{% endif %}
+
+	</body>
+</html>
