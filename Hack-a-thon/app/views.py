@@ -164,14 +164,6 @@ def create_event():
 
 #==============================================================================
 # @author alvin_yau
-# Redirect editEvent without event_id back to the dashboard 
-#==============================================================================
-@app.route('/editEvent', methods = ['GET', 'POST'])
-def require_event_id(): 
-    return redirect(url_for('dashboard'))
-
-#==============================================================================
-# @author alvin_yau
 # Render Edit Event Page with an event from the event object 
 #==============================================================================
 @app.route('/event/<int:event_id>/edit', methods = ['GET', 'POST'])
