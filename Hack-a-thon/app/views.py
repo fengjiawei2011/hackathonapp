@@ -1,11 +1,12 @@
 '''
 Created on Jul 2, 2014
 
-@author: lan_xu
+@author: lan_xu, alvin_yau
 '''
 from app import app, lm, sqldb
 from models import User, Event, Team, Member
-from forms import LoginForm, RegisterForm, TeamForm
+from forms import LoginForm, RegisterForm, EventForm,TeamForm
+>>>>>>> Create Event and Edit Event Implemented
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask import render_template, flash, redirect, session, url_for, request, g, jsonify
 from datetime import datetime, date, time, timedelta
@@ -152,43 +153,52 @@ def register():
 @app.route('/createEvent', methods = ['GET', 'POST'])
 @login_required
 def create_event():
-    if request.method == 'POST':
-        user = g.user
+    user = g.user
+    form = EventForm()
+    event = Event() 
+    if form.validate_on_submit():
         event = Event(user_id = user.id, name = request.form.get('name'), description = request.form.get('description'), starttime = request.form.get('starttime'), endtime = request.form.get('endtime'), location = request.form.get('location'), max_team = request.form.get('max_team'), max_member_per_team = request.form.get('max_member_per_team'), department = request.form.get('department'))
         sqldb.session.add(event)
         sqldb.session.commit()
-        return request.form.get('name') + ' is  added.'
-    return render_template("event.html")
+        return request.form.get('name') + ' is  added.' 
+    return render_template("event.html", form = form, event = event)
 
+#==============================================================================
+# @author alvin_yau
+# Redirect editEvent without event_id back to the dashboard 
+#==============================================================================
+@app.route('/editEvent', methods = ['GET', 'POST'])
+def require_event_id(): 
+    return redirect(url_for('dashboard'))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#==============================================================================
+# @author alvin_yau
+# Render Edit Event Page with an event from the event object 
+#==============================================================================
+@app.route('/editEvent/<int:event_id>', methods = ['GET', 'POST'])
+@login_required
+def edit_event(event_id):
+    user = g.user
+    form = EventForm()
+    event = Event.query.get(event_id)
+    if form.validate_on_submit():
+        print("ON SUBMIT EventID:" + str(event_id))
+        print(event)
+        print("ON SUBMIT Event Name: " + event.name)
+        print("User ID: ")
+        #TODO Check User ID?
+        #Ugly ---NEED TO REFACTOR  [URGENT]
+        event.name = form.name.data
+        event.description = form.description.data
+        event.starttime = form.starttime.data
+        event.endtime = form.endtime.data
+        event.max_team = form.max_team.data
+        event.max_member_per_team = form.max_member_per_team.data
+        event.department = form.department.data
+        sqldb.session.commit()
+        flash('OKAY - HAS BEEN UPDATED')
+    print("EventID:" + str(event_id))
+    print(event)
+    print("Event Name: " + event.name)
+    return render_template("edit_event.html", event = event, form = form)
 

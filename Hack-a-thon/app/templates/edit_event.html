@@ -1,0 +1,62 @@
+<html>
+<body>
+	<h1>Edit Event</h1>
+
+	{% with messages = get_flashed_messages() %} {% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li> {% endfor %}
+	</ul>
+	{% endif %} {% endwith %}
+
+	<form action="" method="post">
+		{{form.hidden_tag()}}
+		<p>
+			Event Name<br> <input name="name" {% if event.name %} value = {{event.name}} {% endif %}> <br> 
+			{% for error in form.errors.name %} 
+			<span style="color: red"> {{ error }} </span> 
+			{% endfor %}
+		</p>
+		<p>
+			Start time<input type="datetime" name="starttime" {% if event.starttime %} value = {{event.starttime}} {% endif %}>
+			{% for error in form.errors.starttime %} 
+			<span style="color: red"> {{ error }} </span> 
+			{% endfor %}
+			<br>
+			End time<input type="datetime" name="endtime" {% if event.endtime %} value = {{event.endtime}} {% endif %}>
+			{% for error in form.errors.endtime %} 
+			<span style="color: red"> {{ error }} </span> 
+			{% endfor %}			
+			<br>
+			Location<input name="location" {% if event.location %} value = {{event.location}} {% endif %}>
+			{% for error in form.errors.location %} 
+			<span style="color: red"> {{ error }} </span> 
+			{% endfor %}			
+			<br>
+			Max teams<input name="max_team" {% if event.max_team %} value = {{event.max_team}} {% endif %}>
+			{% for error in form.errors.max_team %} 
+			<span style="color: red"> {{ error }} </span> 
+			{% endfor %}			
+			<br>
+			Max members per team<input name="max_member_per_team" {% if event.max_member_per_team %} value = {{event.max_member_per_team}} {% endif %}>
+			{% for error in form.errors.max_member_per_team %} 
+			<span style="color: red"> {{ error }} </span> 
+			{% endfor %}			
+			<br>
+			Department<input name="department" {% if event.department %} value = {{event.department}} {% endif %}>
+			{% for error in form.errors.department %} 
+			<span style="color: red"> {{ error }} </span> 
+			{% endfor %}
+			<br>
+			Description<input name="description" {% if event.description %} value = {{event.description}} {% endif %}>
+			{% for error in form.errors.description %} 
+			<span style="color: red"> {{ error }} </span> 
+			{% endfor %}
+			<br>
+		</p>
+		<p>
+			<input type="submit" value="Edit">
+		</p>
+	</form>
+</body>
+</html>

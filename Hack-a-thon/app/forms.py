@@ -15,7 +15,7 @@ class LoginForm(Form):
     username = TextField('username', validators = [Required('Email is required'), validators.Email()])
     password = PasswordField('password', validators = [Required('Password is required')])
 
-
+# @author alvin_yau
 class RegisterForm(Form):
     def unique_email(form, field):
         user = User.query.filter_by(username = form.username.data).first()
@@ -32,6 +32,19 @@ class RegisterForm(Form):
     first_name = TextField('first_name', validators = [Required('First name is required')])
     last_name = TextField('last_name', validators = [Required('Last name is required')])
 
+
 class TeamForm(Form):
     teamname = TextField('name', validators = [Required('Team name is required')])
     member = TextField('member')
+
+# @author alvin_yau
+class EventForm(Form):
+    name = TextField('name', [Required('Name is required')])
+    starttime = DateTimeField('name', [Required("Start time must be in Date Time Format. format='%Y-%m-%d %H:%M:%S'")])
+    endtime = DateTimeField('name', [Required("End time Must be in Date Time Format format='%Y-%m-%d %H:%M:%S'")])
+    location = TextField('name', [Required('Location is required')])
+    max_team = IntegerField('name', [Required('Max Team must be an integer.')])
+    max_member_per_team = IntegerField('max_member_per_team', [Required('Max Number Per Team must be an integer')])
+    department = TextField('name', [Required('Department is required')])
+    description = TextField('name', [Required('Description is required')])
+
