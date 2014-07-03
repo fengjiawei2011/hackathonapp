@@ -102,6 +102,7 @@ def edit_team(team_id):
 @login_required
 def team(team_id):
     team = Team.query.get(team_id)
+    event_id = team.event.id
     user = g.user
     
     if user.id != team.user_id:
@@ -112,7 +113,7 @@ def team(team_id):
             sqldb.session.delete(m)
         sqldb.session.delete(team)
         sqldb.session.commit()
-        return redirect(url_for('event', event_id = team.event.id))
+        return redirect(url_for('event', event_id = event_id))
         
     return render_template("team_view.html",
                            team = team)
