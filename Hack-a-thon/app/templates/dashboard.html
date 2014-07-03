@@ -207,17 +207,23 @@ $(function(){
 	
 	$('.glyphicon-remove').click(function(){
 		var id = $(this).parents('.event-list').attr('id');
+		var deleted = $(this);
 		$.ajax({
 			url : '/event/'+ id ,
 			type : 'POST',
 			success : function(data){
-				console.log(data);
-				if(data === "success") $(this).parents('.event-list').fadeOut(1200); 
+				//console.log(data);
+				$(deleted).parents('.event-list').fadeOut(300); 
 			}
 		});	
 	});
 	
 	//$('.glyphicon-remove').parents('.event-list')
+	
+	$('.info').click(function(){
+		var id = $(this).parents('.event-list').attr('id');
+		 location.replace("/event/"+id);
+	});
 	
 	$.each($('time'),function(key, value){
 		var time = $(value).attr("datetime");
@@ -275,8 +281,8 @@ $(function(){
 						</time>
 						<img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" />
 						<div class="info">
-							<h2 class="title">{{event.name}}</h2>
-							<p class="desc">{{event.description}} | {{event.starttime}}  | {{event.endtime}}</p>
+								<h2 class="title">{{event.name}}</h2>
+								<p class="desc">{{event.description}}</p>
 						</div>
 						<div class="social">
 							{%if not user.is_admin()%}
