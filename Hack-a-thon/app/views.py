@@ -120,8 +120,6 @@ def register():
     return render_template("register.html", form = form)
 
 
-
-
 @app.route('/createEvent', methods = ['GET', 'POST'])
 @login_required
 def create_event():
