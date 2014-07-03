@@ -201,7 +201,7 @@ def delete_event(event_id):
         if not user.is_admin():
             return redirect(url_for('dashboard'))
         
-        for team in event.team:          
+        for team in event.teams:          
             for m in team.members:
                 sqldb.session.delete(m)             
             sqldb.session.delete(team)            
