@@ -92,12 +92,14 @@ body{
 			    					<div class="form-group">
 			    					{{form.first_name(id="first_name",class="form-control input-sm",placeholder="First Name")}}
 			               		<!--  <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name"> -->
+			               			{% for error in form.errors.first_name %} <span style="color: red">{{ error }}</span> {% endfor %}
 			    					</div>
 			    				</div>
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
 			    					{{form.last_name(id="last_name",class="form-control input-sm",placeholder="Last Name")}}
 			    						<!-- <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name"> -->
+			    					{% for error in form.errors.last_name %} <span style="color: red">{{ error }}</span> {% endfor %}
 			    					</div>
 			    				</div>
 			    			</div>
@@ -105,6 +107,7 @@ body{
 			    			<div class="form-group">
 			    				{{form.username(type="email" ,id="email" ,class="form-control input-sm" ,placeholder="Username")}}
 			    				<!-- <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address"> -->
+			    				{% for error in form.errors.username %} <span style="color: red">{{ error }}</span> {% endfor %}
 			    			</div>
 
 			    			<div class="row">
@@ -112,12 +115,14 @@ body{
 			    					<div class="form-group">
 			    						{{form.password(type="password",id="password",class="form-control input-sm",placeholder="Password")}}
 			    						<!-- <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password"> -->
+			    						{% for error in form.errors.password %} <span style="color: red">{{ error }}</span> {% endfor %}
 			    					</div>
 			    				</div>
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
 			    					{{form.password2(type="password",id="password_confirmation",class="form-control input-sm",placeholder="Confirm Password")}}
 			    						<!-- <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password"> -->
+			    						{% for error in form.errors.password2 %} <span style="color: red">{{ error }}</span> {% endfor %}
 			    					</div>
 			    				</div>
 			    			</div>
