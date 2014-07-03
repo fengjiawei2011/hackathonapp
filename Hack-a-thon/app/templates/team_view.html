@@ -1,0 +1,29 @@
+<html>
+<body><h1>
+	Team Detail</h1>
+
+	{% with messages = get_flashed_messages() %} {% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li> {% endfor %}
+	</ul>
+	{% endif %} {% endwith %}
+
+	
+	<p>
+		Team Name: <br> {{team.name}} <br>
+	</p>
+	<p> Members: <br>
+	{% for m in team.members %}
+		{{m.member_name}} |
+	{% endfor %}
+	</p>
+	
+	<form action="" method="post">
+	<p>
+		<input type="submit" value="Delete">
+	</p>
+	</form>
+	<a href={{url_for('edit_team', team_id=team.id)}}> Edit </a>
+</body>
+</html>

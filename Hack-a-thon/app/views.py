@@ -66,7 +66,7 @@ def add_team(event_id):
                            n = event.max_member_per_team)
 
 
-@app.route('/team/<int:team_id>', methods = ['GET', 'POST'])
+@app.route('/team/<int:team_id>/edit', methods = ['GET', 'POST'])
 @login_required
 def edit_team(team_id):
     team = Team.query.get(team_id)
@@ -97,7 +97,26 @@ def edit_team(team_id):
                            form = teamform,
                            n = team.event.max_member_per_team)
     
+@app.route('/team/<int:team_id>', methods = ['GET', 'POST'])
+@login_required
+def delete_team(team_id):
+    team = Team.query.get(team_id)
+    user = g.user
     
+    if user.id != team.user_id:
+        flash('Only the team creator can delete the team.')
+        
+    elif request.method == 'POST':
+        for m in team.members:
+            sqldb.session.delete(m)
+        sqldb.session.delete(team)
+        sqldb.session.commit()
+        return team.name + " is deleted."
+        
+    return render_template("team_view.html",
+                           team = team)
+    
+       
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/<int:page>', methods = ['GET', 'POST'])
 @login_required
