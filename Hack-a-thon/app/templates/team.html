@@ -70,8 +70,15 @@ body{
     		<form action="" method="post">
  			{{form.hidden_tag()}}
 			<h3>Team Name</h3>
-    			<input type="text" name="teamname" id="teamname" class="form-control input-sm" placeholder="Team name">
-
+			{% if team %}
+ 			{{form.teamname(value =team.name,id="teamname", class="form-control input-sm", placeholder="Team name")}}
+ 			{%else %}
+ 			{{form.teamname(value="",id="teamname", class="form-control input-sm", placeholder="Team name")}}
+			{%endif%} 
+ 			<span style="color: red">
+ 	        {% for error in form.errors.teamname %}<br>
+ 	        	{{ error }}
+ 	        {% endfor %}</span> <br>
 
 
      <p>
