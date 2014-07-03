@@ -116,6 +116,7 @@ def team(team_id):
         return redirect(url_for('event', event_id = event_id))
         
     return render_template("team_view.html",
+                           user = user,
                            team = team)
     
        

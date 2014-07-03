@@ -1,13 +1,31 @@
 <html>
 <head>
+<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
+<!-- Optional theme -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+<!-- <script src="{ url_for('static', filename = 'js/jquery.min.js') }}"></script> -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color:yellow;">
+<body>
+{% include 'navbar.html' %}
+<br>
+<br>
 <center>
-<h1>Team Detail</h1>
+<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="well well-sm">
+
+									<h3>Team Name : {{team.name}}</h3>
+					</div>
+				</div>
+			</div>
 
 	{% with messages = get_flashed_messages() %} {% if messages %}
 	<ul>
@@ -16,23 +34,25 @@
 	</ul>
 	{% endif %} {% endwith %}
 
-
-	<p>
-		Team Name: <br> {{team.name}} <br>
-	</p>
-	<p> Members: <br>
+	<h3> Members: <h3>
 	{% for m in team.members %}
-		{{m.member_name}} |
+		<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="well well-sm">
+						{{m.member_name}}
+					</div>
+				</div>
+			</div>
 	{% endfor %}
 	</p>
-	
+	{% if user.id == team.user_id %}
 	<form action="" method="post">
-	<p>
 		<input type="submit" value="Delete">
-	</p>
 	</form>
-	<a href={{url_for('edit_team', team_id=team.id)}}> Edit </a>
-	
+	<form action={{url_for('edit_team', team_id=team.id)}}>
+    <input type="submit" value="Edit">
+	</form>
+	{% endif %}
 	
 </center>
 </body>
