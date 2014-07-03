@@ -5,8 +5,7 @@ Created on Jul 2, 2014
 '''
 from app import app, lm, sqldb
 from models import User, Event, Team, Member
-from forms import LoginForm, RegisterForm, EventForm,TeamForm
->>>>>>> Create Event and Edit Event Implemented
+from forms import LoginForm, RegisterForm, EventForm, TeamForm
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask import render_template, flash, redirect, session, url_for, request, g, jsonify
 from datetime import datetime, date, time, timedelta
@@ -105,7 +104,7 @@ def delete_team(team_id):
     user = g.user
     
     if user.id != team.user_id:
-        flash('Only the team creator can delete the team.')
+        flash('Only the team creator can delete/edit the team.')
         
     elif request.method == 'POST':
         for m in team.members:
@@ -175,19 +174,16 @@ def require_event_id():
 # @author alvin_yau
 # Render Edit Event Page with an event from the event object 
 #==============================================================================
-@app.route('/editEvent/<int:event_id>', methods = ['GET', 'POST'])
+@app.route('/event/<int:event_id>/edit', methods = ['GET', 'POST'])
 @login_required
 def edit_event(event_id):
     user = g.user
     form = EventForm()
     event = Event.query.get(event_id)
-    if form.validate_on_submit():
-        print("ON SUBMIT EventID:" + str(event_id))
-        print(event)
-        print("ON SUBMIT Event Name: " + event.name)
-        print("User ID: ")
-        #TODO Check User ID?
-        #Ugly ---NEED TO REFACTOR  [URGENT]
+    if user.id != event.user_id:
+        flash('Only the event creator can update the event information.')
+        
+    elif form.validate_on_submit():
         event.name = form.name.data
         event.description = form.description.data
         event.starttime = form.starttime.data
@@ -197,8 +193,59 @@ def edit_event(event_id):
         event.department = form.department.data
         sqldb.session.commit()
         flash('OKAY - HAS BEEN UPDATED')
-    print("EventID:" + str(event_id))
-    print(event)
-    print("Event Name: " + event.name)
     return render_template("edit_event.html", event = event, form = form)
+
+
+@app.route('/event/<int:event_id>', methods = ['GET', 'POST'])
+@login_required
+def delete_event(event_id):
+    event = Event.query.get(event_id)
+    user = g.user
+    
+    if user.id != event.user_id:
+        flash('Only the event creator can delete/edit the event.')
+        
+    elif request.method == 'POST':
+        
+        for team in event.team:          
+            for m in team.members:
+                sqldb.session.delete(m)             
+            sqldb.session.delete(team)            
+        sqldb.session.delete(event)
+        
+        sqldb.session.commit()
+        return event.name + " is deleted."
+        
+    return render_template("event_view.html",
+                           event = event)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> event detail view
 

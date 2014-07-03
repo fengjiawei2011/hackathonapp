@@ -1,0 +1,49 @@
+<html>
+<body><h1>
+	Event Detail</h1>
+
+	{% with messages = get_flashed_messages() %} {% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li> {% endfor %}
+	</ul>
+	{% endif %} {% endwith %}
+
+	
+	<p>
+		Event Name: <br> {{event.name}} <br>
+	</p>
+	<p>
+		Description: <br> {{event.description}} <br>
+	</p>
+	<p>
+		Start: <br> {{event.starttime}} <br>
+	</p>
+	<p>
+		End: <br> {{event.endtime}} <br>
+	</p>
+	<p>
+		Location: <br> {{event.location}} <br>
+	</p>
+	<p>
+		Department: <br> {{event.department}} <br>
+	</p>
+	<h2>Registered Teams</h2>
+	{% for team in event.teams %}
+	<p>
+		Team Name: {{team.name}}
+	<br> Members: 
+		{% for m in team.members %}
+			{{m.member_name}} |
+		{% endfor %}
+	</p>
+	{% endfor %}
+	
+	<form action="" method="post">
+	<p>
+		<input type="submit" value="Delete">
+	</p>
+	</form>
+	<a href={{url_for('edit_event', event_id=event.id)}}> Edit </a>
+</body>
+</html>
