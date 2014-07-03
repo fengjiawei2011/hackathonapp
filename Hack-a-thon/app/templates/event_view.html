@@ -121,7 +121,7 @@
                       <tr>
                         <td>Team Registered: </td>
                         <td> {{event.teams.count()}} <br>
-                         {% if event.teams.count() <= event.max_team %}
+                         {% if event.teams.count() < event.max_team %}
                         	<a class="btn btn-default" href={{url_for('add_team', event_id=event.id)}}> Add team </a>
                          {% endif %}
                         	</td>
