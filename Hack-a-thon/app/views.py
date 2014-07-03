@@ -153,6 +153,8 @@ def register():
 @login_required
 def create_event():
     user = g.user
+    if not user.is_admin():
+        return redirect(url_for('dashboard')) 
     form = EventForm()
     event = Event() 
     if form.validate_on_submit():
