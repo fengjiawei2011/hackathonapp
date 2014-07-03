@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
 <body>
 	<h1>Edit Event</h1>
 
@@ -58,5 +58,179 @@
 			<input type="submit" value="Save">
 		</p>
 	</form>
+</body>
+</html> -->
+
+
+<html>
+<body>
+	<!--<h1>Create Event</h1>
+<html>
+<head>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color:yellow;">
+ 	<h1>Create Event</h1>
+
+	{% with messages = get_flashed_messages() %} {% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li> {% endfor %}
+	</ul>
+	{% endif %} {% endwith %}
+
+	<form action="" method="post">
+		<p>
+			<div class="container">
+				<h3>Event Name</h3>
+    				<div class="row">
+        				<div class="form-group form-group-options col-xs-11 col-sm-8 col-md-4">
+    						<div class="input-group input-group-option col-xs-12">
+    							<input type="text" name="option[]" class="form-control" placeholder="Event Name">
+    							<span class="input-group-addon input-group-addon-remove">
+    								<span class="glyphicon glyphicon-remove"></span>
+    							</span>
+    						</div>
+    					</div>
+   				 </div>
+			</div>	 
+		</p>
+		<p>
+			Start time<input name="starttime"><br>
+			End time<input name="endtime"><br>
+			Location<input name="location"><br>
+			Max teams<input name="max_team"><br>
+			Max members per team<input name="max_member_per_team"><br>
+			Department<input name="department"><br>
+			Description<input name="description"><br>
+		</p>
+		<p>
+			<input type="submit" value="Add">
+		</p>
+	</form>	 -->
+	{% include 'navbar.html' %}
+	<center>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="well well-sm">
+						<form class="form-horizontal" action="" method="post">
+							{{form.hidden_tag()}}
+							<fieldset>
+								<legend class="text-center">
+									<h1>Create Event</h1>
+								</legend>
+
+								<!--Event Name input-->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="name">Event
+										Name</label>
+									<div class="col-md-9">
+										<input id="name" name="name" type="text"
+											placeholder="Your event name" class="form-control" {% if event.name %} value = {{event.name}} {% endif %}>
+										{% for error in form.errors.name %} <span style="color: red">
+											{{ error }} </span> {% endfor %}
+									</div>
+								</div>
+
+								<!-- Start time input-->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="Stime">Start
+										Time</label>
+									<div class="col-md-9">
+										<input id="starttime" name="starttime" type="datetime-local"
+											placeholder="Start time" class="form-control" {% if event.starttime %} value = {{event.starttime}} {% endif %}> {% for
+										error in form.errors.starttime %} <br> <span
+											style="color: red"> {{ error }} </span> {% endfor %}
+									</div>
+								</div>
+
+								<!-- End time input-->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="Etime">End
+										Time</label>
+									<div class="col-md-9">
+										<input id="endtime" name="endtime" type="datetime-local"
+											placeholder="End time" class="form-control" {% if event.endtime %} value = {{event.endtime}} {% endif %}> {% for
+										error in form.errors.endtime %} <span style="color: red">
+											{{ error }} </span> {% endfor %}
+									</div>
+								</div>
+
+								<!--Event Location input-->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="location">Location</label>
+									<div class="col-md-9">
+										<input id="location" name="location" type="text"
+											placeholder="Event location" class="form-control" {% if event.location %} value = {{event.location}} {% endif %}>
+									</div>
+									{% for error in form.errors.location %} <span
+										style="color: red"> {{ error }} </span> {% endfor %}
+								</div>
+
+								<!--Max Team input-->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="teamMax">Max
+										Number of Teams</label>
+									<div class="col-md-9">
+										<input id="max_team" name="max_team" type="number"
+											placeholder="Max teams" class="form-control" {% if event.max_team %} value = {{event.max_team}} {% endif %}>
+									</div>
+									{% for error in form.errors.max_team %} <span
+										style="color: red"> {{ error }} </span> {% endfor %}
+								</div>
+
+								<!--Max Members input-->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="memMax">Max
+										Members per Team</label>
+									<div class="col-md-9">
+										<input id="max_member_per_team" name="max_member_per_team"
+											type="number" placeholder="Max Members" class="form-control" {% if event.max_member_per_team %} value = {{event.max_member_per_team}} {% endif %}>
+									</div>
+									{% for error in form.errors.max_member_per_team %} <span
+										style="color: red"> {{ error }} </span> {% endfor %}
+								</div>
+
+								<!--Department input-->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="dep">Department</label>
+									<div class="col-md-9">
+										<input id="department" name="department" type="text"
+											placeholder="Your Department" class="form-control" {% if event.department %} value = {{event.department}} {% endif %}>
+									</div>
+									{% for error in form.errors.department %} <span
+										style="color: red"> {{ error }} </span> {% endfor %}
+								</div>
+
+								<!-- Message body -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="message">Event
+										Discription</label>
+									<div class="col-md-9">
+										<textarea class="form-control" id="message" name="description"
+											 rows="5"  >{% if event.description %}{{event.description}}{% endif %}</textarea>
+									</div>
+									{% for error in form.errors.description %} <span
+										style="color: red"> {{ error }} </span> {% endfor %}
+								</div>
+
+								<!-- Form actions -->
+								<div class="form-group">
+									<div class="col-md-12 text-right">
+										<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</center>
 </body>
 </html>

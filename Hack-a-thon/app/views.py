@@ -174,7 +174,9 @@ def create_event():
 def edit_event(event_id):
     user = g.user
     form = EventForm()
+    print(event_id)
     event = Event.query.get(event_id)
+    #assert event != null, "SHIT"
     if not user.is_admin():
         if user.id != event.user_id:
             return redirect(url_for('dashboard'))
@@ -189,6 +191,10 @@ def edit_event(event_id):
         event.department = form.department.data
         sqldb.session.commit()
         return redirect(url_for('event', event_id = event_id))
+    if event == None:
+        # TODO NOT WORKING
+        print("Event not found!")
+       
     return render_template("edit_event.html", event = event, form = form)
 
 
