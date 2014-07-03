@@ -174,8 +174,9 @@ def edit_event(event_id):
     user = g.user
     form = EventForm()
     event = Event.query.get(event_id)
-    if user.id != event.user_id or not user.is_admin():
-        return redirect(url_for('dashboard'))
+    if not user.is_admin():
+        if user.id != event.user_id:
+            return redirect(url_for('dashboard'))
         
     if form.validate_on_submit():
         event.name = form.name.data
@@ -196,8 +197,9 @@ def delete_event(event_id):
     event = Event.query.get(event_id)
     user = g.user
     
-    if user.id != event.user_id:
-        flash('Only the event creator can delete/edit the event.')
+    if not user.is_admin():
+        if user.id != event.user_id:
+            return redirect(url_for('dashboard'))
         
     elif request.method == 'POST':
         
