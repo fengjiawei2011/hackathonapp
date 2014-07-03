@@ -199,12 +199,55 @@
 		}
 	}
 </style>
+
+<script type="text/javascript">
+var month = ['Jan', 'Feb', 'Mar','Apil','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+$(function(){
+	$.each($('time'),function(key, value){
+		var time = $(value).attr("datetime");
+		var day = time.split(" ")[0].split("-")[2];
+		var month = time.split(" ")[0].split("-")[1];
+		var year = time.split(" ")[0].split("-")[0];
+		$(value).find('.day').html(day);
+		$(value).find('.month').html(getMonth(month));
+		$(value).find('.year').html(day);
+		
+	});
+	
+	function getMonth(number){
+		console.log(number);
+		 if( number !== undefined ){
+			 if(number.substring(0,1) !== "0"){
+				 return month[parseInt(number)-1];
+			 }else{
+				 return month[parseInt(number.substring(1,2))-1];
+			 }		
+		 }	 
+	}
+});
+
+</script>
 </head>
 <body>
-	
-	 <div class="container">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <a class="navbar-brand" href="#">Hackathon</a>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+          </ul>
+        </div>
+  </div>
+</nav>
+ <div class="container">
 	 <div class="row" style="padding: 0px;margin: 0px 0px 20px;">
-	 	<h1>EVENTS <button type="button" class="btn btn-primary">ADD</button></h1>
+	 	<h1>EVENTS 
+	 	{%if user.is_admin()%}
+	 		<a href="" type="button" class="btn btn-primary">ADD</a>
+	 	{% endif %}
+	 	</h1> 	
 	 </div>
 
 	<!-- {% with messages = get_flashed_messages() %} {% if messages %}
@@ -219,7 +262,7 @@
 			<div class="col-xs-12">
 				<ul class="event-list">
 					<li>
-						<time datetime="2014-07-20">
+						<time datetime="{{event.starttime}}">
 							<span class="day">5</span>
 							<span class="month">Jul</span>
 							<span class="year">2014</span>
@@ -231,11 +274,18 @@
 							<p class="desc">{{event.description}} | {{event.starttime}}  | {{event.endtime}}</p>
 						</div>
 						<div class="social">
+							{%if not user.is_admin()%}
 							<ul>
 								<li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
 								<li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
 								<li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
 							</ul>
+							{% else %}
+							<ul>		
+								<li class="edit facebook" style="width:33%;"><a href=""><span class="glyphicon glyphicon-pencil"></span></a></li>
+								<li class="delete google-plus" style="width:33%;"><a href=""><span class="glyphicon glyphicon-remove"></span></a></li>
+							</ul>
+							{% endif %}
 						</div>
 					</li>
 
