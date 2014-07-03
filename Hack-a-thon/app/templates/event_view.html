@@ -127,6 +127,20 @@
                         	</td>
                        
                       </tr>
+                      
+                       <tr>
+                        <td>Teams : </td>
+                        <td>
+                        	{% for team in event.teams %}
+							 		<a href="/team/{{team.id}}">Team Name: {{team.name}}</a>
+							 	<br> Members: 
+							 		{% for m in team.members %}
+							 			{{m.member_name}} |
+							 		{% endfor %}
+							 	{% endfor %}
+                        </td>
+                           
+                      </tr>
                      
                     </tbody>
                   </table>
