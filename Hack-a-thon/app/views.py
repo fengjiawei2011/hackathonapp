@@ -174,10 +174,10 @@ def edit_event(event_id):
     user = g.user
     form = EventForm()
     event = Event.query.get(event_id)
-    if user.id != event.user_id:
-        flash('Only the event creator can update the event information.')
+    if user.id != event.user_id or not user.is_admin():
+        return redirect(url_for('dashboard'))
         
-    elif form.validate_on_submit():
+    if form.validate_on_submit():
         event.name = form.name.data
         event.description = form.description.data
         event.starttime = form.starttime.data
