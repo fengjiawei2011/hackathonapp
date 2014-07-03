@@ -1,6 +1,10 @@
 <html>
-<body>
-	<h1>Add Team</h1>
+<body><h1>
+	{% if not team %}
+	Add Team
+	{% else %}
+	Edit Team
+	{% endif %}</h1>
 
 	{% with messages = get_flashed_messages() %} {% if messages %}
 	<ul>
@@ -10,16 +14,31 @@
 	{% endif %} {% endwith %}
 
 	<form action="" method="post">
+	{{form.hidden_tag()}}
 		<p>
-			Team Name<br> <input name="name" {% if team %}value = {{team.name}} {%endif%} > <br> 
+			Team Name<br> 
+			{% if team %}
+			{{form.teamname(value =team.name)}}
+			{%else %}
+			{{form.teamname(value="")}}
+			{%endif%} 
+			<span style="color: red">
+	        {% for error in form.errors.teamname %}<br>
+	        	{{ error }}
+	        {% endfor %}</span> <br>
 		</p>
 		<p>
 		{% for i in range(n) %}
-			Member {{i+1}} <br> <input name="member" {% if i < team.members.count() %} value = {{team.members[i].member_name}} {%endif%} ><br>
+			Member {{i+1}} <br> 
+			{% if team and i < team.members.count() %}
+			{{form.member(value=team.members[i].member_name)}} 
+			{%else %}
+			{{form.member(value="")}}
+			{%endif%}<br>
 		{% endfor %}
 		</p>
 		<p>
-			<input type="submit" value="Add">
+			<input type="submit" value="Save">
 		</p>
 	</form>
 </body>

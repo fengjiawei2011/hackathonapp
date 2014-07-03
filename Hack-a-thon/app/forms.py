@@ -31,3 +31,7 @@ class RegisterForm(Form):
     password2 = PasswordField('password2', validators = [Required('Please Retype your password'), retype_password_validate])
     first_name = TextField('first_name', validators = [Required('First name is required')])
     last_name = TextField('last_name', validators = [Required('Last name is required')])
+
+class TeamForm(Form):
+    teamname = TextField('name', validators = [Required('Team name is required')])
+    member = TextField('member')

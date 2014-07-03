@@ -5,7 +5,7 @@ Created on Jul 2, 2014
 '''
 from app import app, lm, sqldb
 from models import User, Event, Team, Member
-from forms import LoginForm, RegisterForm
+from forms import LoginForm, RegisterForm, TeamForm
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask import render_template, flash, redirect, session, url_for, request, g, jsonify
 from datetime import datetime, date, time, timedelta
@@ -41,12 +41,13 @@ def login():
 @login_required
 def add_team(event_id):
     event = Event.query.get(event_id)
+    teamform = TeamForm()
     if event.teams.count() >= event.max_team:
         flash('Sorry, no more space available.')
         
-    elif request.method == 'POST':
+    elif teamform.validate_on_submit():
         user = g.user
-        team = Team(user_id = user.id, event_id = event_id, name = request.form.get('name'))
+        team = Team(user_id = user.id, event_id = event_id, name = request.form.get('teamname'))
         sqldb.session.add(team)
         sqldb.session.commit()
         
@@ -58,9 +59,10 @@ def add_team(event_id):
         
         sqldb.session.commit()
         
-        return request.form.get('name') + ' is  added.'
+        return request.form.get('teamname') + ' is  added.'
     return render_template("team.html",
                            team = None,
+                           form = teamform,
                            n = event.max_member_per_team)
 
 
@@ -69,23 +71,30 @@ def add_team(event_id):
 def edit_team(team_id):
     team = Team.query.get(team_id)
     user = g.user
-    if request.method == 'POST' and user.id == team.user_id:        
-        team.name = request.form.get('name')
+    teamform = TeamForm()
+    
+    if user.id != team.user_id:
+        flash('Only the team creator can update the team information.')
+        
+    elif teamform.validate_on_submit():       
+        team.name = request.form.get('teamname')
         
         for m in team.members:
             sqldb.session.delete(m)
             
         members = request.form.getlist('member')
         for m in members:
-            member = Member(team_id = team.id, member_name = m)
-            sqldb.session.add(member)
+            if m!="":
+                member = Member(team_id = team.id, member_name = m)
+                sqldb.session.add(member)
         
         sqldb.session.commit()
         
-        return request.form.get('name') + ' is  updated.'
+        return request.form.get('teamname') + ' is  updated.'
     
     return render_template("team.html",
                            team = team,
+                           form = teamform,
                            n = team.event.max_member_per_team)
     
     
