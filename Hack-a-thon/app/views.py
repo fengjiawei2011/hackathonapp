@@ -60,25 +60,25 @@ def add_team(event_id):
         
         return request.form.get('name') + ' is  added.'
     return render_template("team.html",
+                           team = None,
                            n = event.max_member_per_team)
 
 
 @app.route('/team/<int:team_id>', methods = ['GET', 'POST'])
 @login_required
 def edit_team(team_id):
-    #TODO
     team = Team.query.get(team_id)
     user = g.user
     if request.method == 'POST' and user.id == team.user_id:        
         team.name = request.form.get('name')
-        sqldb.session.add(team)
-        sqldb.session.commit()
         
+        for m in team.members:
+            sqldb.session.delete(m)
+            
         members = request.form.getlist('member')
         for m in members:
-            if m!="":
-                member = Member(team_id = team.id, member_name = m)
-                sqldb.session.add(member)
+            member = Member(team_id = team.id, member_name = m)
+            sqldb.session.add(member)
         
         sqldb.session.commit()
         
@@ -96,7 +96,8 @@ def dashboard(page=1):
     user = g.user
     events = Event.query.order_by(Event.starttime.desc()).paginate(page, 5, False)
     return render_template("dashboard.html",
-                           events = events)
+                           events = events,
+                           user = user)
     
     
 @app.route('/logout')

@@ -11,11 +11,11 @@
 
 	<form action="" method="post">
 		<p>
-			Team Name<br> <input name="name"> <br> 
+			Team Name<br> <input name="name" {% if team %}value = {{team.name}} {%endif%} > <br> 
 		</p>
 		<p>
 		{% for i in range(n) %}
-			Member {{i+1}} <br> <input name="member"><br>
+			Member {{i+1}} <br> <input name="member" {% if i < team.members.count() %} value = {{team.members[i].member_name}} {%endif%} ><br>
 		{% endfor %}
 		</p>
 		<p>
