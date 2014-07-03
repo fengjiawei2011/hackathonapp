@@ -1,0 +1,30 @@
+<html>
+<body>
+	<h1>Create Event</h1>
+
+	{% with messages = get_flashed_messages() %} {% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li> {% endfor %}
+	</ul>
+	{% endif %} {% endwith %}
+
+	<form action="" method="post">
+		<p>
+			Event Name<br> <input name="name"> <br> 
+		</p>
+		<p>
+			Start time<input name="starttime"><br>
+			End time<input name="endtime"><br>
+			Location<input name="location"><br>
+			Max teams<input name="max_team"><br>
+			Max members per team<input name="max_member_per_team"><br>
+			Department<input name="department"><br>
+			Description<input name="description"><br>
+		</p>
+		<p>
+			<input type="submit" value="Add">
+		</p>
+	</form>
+</body>
+</html>

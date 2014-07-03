@@ -115,3 +115,50 @@ def register():
         add_user(form.first_name.data, form.last_name.data, form.username.data, form.password.data)
         flash('OKAY')
     return render_template("register.html", form = form)
+
+
+
+
+@app.route('/createEvent', methods = ['GET', 'POST'])
+@login_required
+def create_event():
+    if request.method == 'POST':
+        user = g.user
+        event = Event(user_id = user.id, name = request.form.get('name'), description = request.form.get('description'), starttime = request.form.get('starttime'), endtime = request.form.get('endtime'), location = request.form.get('location'), max_team = request.form.get('max_team'), max_member_per_team = request.form.get('max_member_per_team'), department = request.form.get('department'))
+        sqldb.session.add(event)
+        sqldb.session.commit()
+        return request.form.get('name') + ' is  added.'
+    return render_template("event.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
