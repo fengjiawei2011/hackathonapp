@@ -218,34 +218,5 @@ def delete_event(event_id):
         
     return render_template("event_view.html",
                            event = event)
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> event detail view
 
