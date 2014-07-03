@@ -29,6 +29,8 @@
 		Department: <br> {{event.department}} <br>
 	</p>
 	<h2>Registered Teams</h2>
+	<a href={{url_for('add_team', event_id=event.id)}}> Add team </a>
+	
 	{% for team in event.teams %}
 	<p>
 		Team Name: {{team.name}}
@@ -39,11 +41,13 @@
 	</p>
 	{% endfor %}
 	
-	<form action="" method="post">
-	<p>
-		<input type="submit" value="Delete">
-	</p>
-	</form>
-	<a href={{url_for('edit_event', event_id=event.id)}}> Edit </a>
+	{% if user.is_admin() %}
+		<form action="" method="post">
+		<p>
+			<input type="submit" value="Delete">
+		</p>
+		</form>
+		<a href={{url_for('edit_event', event_id=event.id)}}> Edit </a>
+	{% endif %}
 </body>
 </html>

@@ -196,12 +196,10 @@ def edit_event(event_id):
 def delete_event(event_id):
     event = Event.query.get(event_id)
     user = g.user
-    
-    if not user.is_admin():
-        if user.id != event.user_id:
-            return redirect(url_for('dashboard'))
         
-    elif request.method == 'POST':
+    if request.method == 'POST':
+        if not user.is_admin():
+            return redirect(url_for('dashboard'))
         
         for team in event.team:          
             for m in team.members:
@@ -213,6 +211,7 @@ def delete_event(event_id):
         return event.name + " is deleted."
         
     return render_template("event_view.html",
+                           user = user,
                            event = event)
 
 
