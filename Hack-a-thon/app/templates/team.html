@@ -1,35 +1,78 @@
 <html>
-<body style="background-color:yellow;">
-<center>
-<!-- <h1>
-	{% if not team %}
-	Add Team
-	{% else %}
-	Edit Team
-	{% endif %}</h1>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
-	{% with messages = get_flashed_messages() %} {% if messages %}
-	<ul>
-		{% for message in messages %}
-		<li>{{ message }}</li> {% endfor %}
-	</ul>
-	{% endif %} {% endwith %}
+<!-- Optional theme -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-	<form action="" method="post">
-	{{form.hidden_tag()}}
-		<p>
-			Team Name<br> 
-			{% if team %}
-			{{form.teamname(value =team.name)}}
-			{%else %}
-			{{form.teamname(value="")}}
-			{%endif%} 
-			<span style="color: red">
-	        {% for error in form.errors.teamname %}<br>
-	        	{{ error }}
-	        {% endfor %}</span> <br>
-		</p>
-		<p>
+<!-- <script src="{ url_for('static', filename = 'js/jquery.min.js') }}"></script> -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<style>
+body{
+    background-color: #525252;
+}
+.centered-form{
+	margin-top: 60px;
+}
+
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+</style>
+</head>
+
+<body >
+
+	
+	<div class="container" style="margin-top: 30px">
+		<div id="signincontainer" class="col-md-4 col-md-offset-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+          <form class="form-horizontal" action="" method="post">
+          <fieldset>
+					<h3 class="panel-title">
+						<strong>
+						
+							{% if not team %}
+							Add Team
+							{% else %}
+							Edit Team
+							{% endif %}</h1></legend>
+							
+							
+							{% with messages = get_flashed_messages() %} {% if messages %}
+							<ul>
+								{% for message in messages %}
+								<li>{{ message }}</li> {% endfor %}
+							</ul>
+							{% endif %} {% endwith %}						
+						
+						
+						
+						
+						 </strong>
+					</h3>
+				</div>
+				<div class="panel-body">
+					
+
+<!-- Team Name -->
+
+	
+    <div class="row">
+        <div class="form-group">
+    		<div class="input-group input-group-option col-xs-5" style="padding: 15px;">
+			<h3>Team Name</h3>
+    			<input type="text" name="teamname" id="teamname"class="form-control input-sm" placeholder="Team name">
+
+
+
+     <p>
 		{% for i in range(n) %}
 			Member {{i+1}} <br> 
 			{% if team and i < team.members.count() %}
@@ -39,73 +82,20 @@
 			{%endif%}<br>
 		{% endfor %}
 		</p>
-		<p>
-			<input type="submit" value="Save">
-		</p>
-	</form> -->
-	
-	
-	<div class="container">
-	<div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="well well-sm">
-          <form class="form-horizontal" action="" method="post">
-          <fieldset>
-            <legend class="text-center"><h1>
-	{% if not team %}
-	Add Team
-	{% else %}
-	Edit Team
-	{% endif %}</h1></legend>
-	
-	
-	{% with messages = get_flashed_messages() %} {% if messages %}
-	<ul>
-		{% for message in messages %}
-		<li>{{ message }}</li> {% endfor %}
-	</ul>
-	{% endif %} {% endwith %}
-	
-	<!-- Team Name -->
-	<div class="container">
-	<h3>Team Name</h3>
-    <div class="row">
-        <div class="form-group form-group-options col-xs-11 col-sm-8 col-md-4">
-    		<div class="input-group input-group-option col-xs-12">
-    			<input type="text" name="option[]" class="form-control" placeholder="Team name">
-    			<span class="input-group-addon input-group-addon-remove">
-    				<span class="glyphicon glyphicon-remove"></span>
-    			</span>
     		</div>
     	</div>
     </div>
-</div>
-    
-            <!-- group members input-->
-            <p>
-		{% for i in range(n) %}
-			Member {{i+1}} <br> 
-			{% if team and i < team.members.count() %}
-			{{form.member(value=team.members[i].member_name)}} 
-			{%else %}
-			{{form.member(value="")}}
-			{%endif%}<br>
-		{% endfor %}
-		</p>
-    
-    
             <!-- Form actions -->
             <div class="form-group">
-              <div class="col-md-12 text-right">
+              <div class="col-md-12 text-center">
                 <button type="submit" class="btn btn-primary btn-lg">Save</button>
               </div>
             </div>
           </fieldset>
           </form>
-        </div>
-      </div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-</center>
 </body>
 </html>
