@@ -1,67 +1,3 @@
-<!-- <html>
-<body>
-	<h1>Edit Event</h1>
-
-	{% with messages = get_flashed_messages() %} {% if messages %}
-	<ul>
-		{% for message in messages %}
-		<li>{{ message }}</li> {% endfor %}
-	</ul>
-	{% endif %} {% endwith %}
-
-	<form action="" method="post">
-		{{form.hidden_tag()}}
-		<p>
-			Event Name<br> <input name="name" {% if event.name %} value = {{event.name}} {% endif %}> <br> 
-			{% for error in form.errors.name %} 
-			<span style="color: red"> {{ error }} </span> 
-			{% endfor %}
-		</p>
-		<p>
-			Start time<input type="datetime" name="starttime" {% if event.starttime %} value = {{event.starttime}} {% endif %}>
-			{% for error in form.errors.starttime %} 
-			<span style="color: red"> {{ error }} </span> 
-			{% endfor %}
-			<br>
-			End time<input type="datetime" name="endtime" {% if event.endtime %} value = {{event.endtime}} {% endif %}>
-			{% for error in form.errors.endtime %} 
-			<span style="color: red"> {{ error }} </span> 
-			{% endfor %}			
-			<br>
-			Location<input name="location" {% if event.location %} value = {{event.location}} {% endif %}>
-			{% for error in form.errors.location %} 
-			<span style="color: red"> {{ error }} </span> 
-			{% endfor %}			
-			<br>
-			Max teams<input name="max_team" {% if event.max_team %} value = {{event.max_team}} {% endif %}>
-			{% for error in form.errors.max_team %} 
-			<span style="color: red"> {{ error }} </span> 
-			{% endfor %}			
-			<br>
-			Max members per team<input name="max_member_per_team" {% if event.max_member_per_team %} value = {{event.max_member_per_team}} {% endif %}>
-			{% for error in form.errors.max_member_per_team %} 
-			<span style="color: red"> {{ error }} </span> 
-			{% endfor %}			
-			<br>
-			Department<input name="department" {% if event.department %} value = {{event.department}} {% endif %}>
-			{% for error in form.errors.department %} 
-			<span style="color: red"> {{ error }} </span> 
-			{% endfor %}
-			<br>
-			Description<input name="description" {% if event.description %} value = {{event.description}} {% endif %}>
-			{% for error in form.errors.description %} 
-			<span style="color: red"> {{ error }} </span> 
-			{% endfor %}
-			<br>
-		</p>
-		<p>
-			<input type="submit" value="Save">
-		</p>
-	</form>
-</body>
-</html> -->
-
-
 <html>
 
 <head>
@@ -70,60 +6,12 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color: yellow">
-	<!--<h1>Create Event</h1>
-<html>
-<head>
-
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-</head>
-<body style="background-color:yellow;">
- 	<h1>Create Event</h1>
-
-	{% with messages = get_flashed_messages() %} {% if messages %}
-	<ul>
-		{% for message in messages %}
-		<li>{{ message }}</li> {% endfor %}
-	</ul>
-	{% endif %} {% endwith %}
-
-	<form action="" method="post">
-		<p>
-			<div class="container">
-				<h3>Event Name</h3>
-    				<div class="row">
-        				<div class="form-group form-group-options col-xs-11 col-sm-8 col-md-4">
-    						<div class="input-group input-group-option col-xs-12">
-    							<input type="text" name="option[]" class="form-control" placeholder="Event Name">
-    							<span class="input-group-addon input-group-addon-remove">
-    								<span class="glyphicon glyphicon-remove"></span>
-    							</span>
-    						</div>
-    					</div>
-   				 </div>
-			</div>	 
-		</p>
-		<p>
-			Start time<input name="starttime"><br>
-			End time<input name="endtime"><br>
-			Location<input name="location"><br>
-			Max teams<input name="max_team"><br>
-			Max members per team<input name="max_member_per_team"><br>
-			Department<input name="department"><br>
-			Description<input name="description"><br>
-		</p>
-		<p>
-			<input type="submit" value="Add">
-		</p>
-	</form>	 -->
+<body style="background-color: rgb(220, 220, 220)">
 	{% include 'navbar.html' %}
 	<center>
-		<div class="container">
+		<div class="container" style = "margin-top : 50px">
 			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
+				<div class="col-md-6 col-md-offset-3" style="margin-left:15%;width:70%">
 					<div class="well well-sm">
 						<form class="form-horizontal" action="" method="post">
 							{{form.hidden_tag()}}
@@ -149,21 +37,20 @@
 									<label class="col-md-3 control-label" for="Stime">Start
 										Time</label>
 									<div class="col-md-9">
-										<input id="starttime" name="starttime" type="text"
-											placeholder="Start time" class="form-control" {% if event.starttime %} value ="{{event.starttime}}" {% endif %}> {% for
+										<input id="starttime" name="starttime" type="datetime-local"
+											class="form-control" {% if event.starttime %} value ={{event.starttime.strftime('%Y-%m-%dT%H:%M')}} {% endif %}> {% for
 										error in form.errors.starttime %} <br> <span
 											style="color: red"> {{ error }} </span> {% endfor %}
 									</div>
 								</div>
-
 								<!-- End time input-->
 								<div class="form-group">
 									<label class="col-md-3 control-label" for="Etime">End
 										Time</label>
 									<div class="col-md-9">
-										<input id="endtime" name="endtime" type="text"
-											placeholder="End time" class="form-control" {% if event.endtime %} value ="{{event.endtime}}" {% endif %}> {% for
-										error in form.errors.endtime %} <span style="color: red">
+										<input id="endtime" name="endtime" type="datetime-local"
+											class="form-control" {% if event.endtime %} value ={{event.endtime.strftime('%Y-%m-%dT%H:%M')}} {% endif %}> 
+											{% for error in form.errors.endtime %} <span style="color: red">
 											{{ error }} </span> {% endfor %}
 									</div>
 								</div>
@@ -229,7 +116,7 @@
 								<!-- Form actions -->
 								<div class="form-group">
 									<div class="col-md-12 text-right">
-										<button type="submit" class="btn btn-primary btn-lg">Edit</button>
+										<button type="submit" class="btn btn-primary btn-lg">Save</button>
 									</div>
 								</div>
 							</fieldset>

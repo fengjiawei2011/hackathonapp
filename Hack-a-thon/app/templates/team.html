@@ -1,15 +1,7 @@
 <html>
 <head>
-<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
-<!-- <script src="{ url_for('static', filename = 'js/jquery.min.js') }}"></script> -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-
-<!-- Latest compiled and minified JavaScript -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <style>
 body{
@@ -26,81 +18,70 @@ body{
 </style>
 </head>
 
-<body >
+<body style="background-color: rgb(220, 220, 220)">
+{% include 'navbar.html' %}
+<center>
+		<div class="container" style = "margin-top : 50px">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3" style="margin-left:15%;width:70%">
+					<div class="well well-sm">
+						<form class="form-horizontal" action="" method="post">
+							{{form.hidden_tag()}}
+							<fieldset>
+								<legend class="text-center"><h1>
+									{% if not team %}
+									Add Team
+									{% else %}
+									Edit Team
+									{% endif %}
+								</h1></legend>
 
-	
-	<div class="container" style="margin-top: 30px">
-		<div id="signincontainer" class="col-md-4 col-md-offset-4">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h1>
-						<strong>
-							{% if not team %}
-							Add Team
-							{% else %}
-							Edit Team
-							{% endif %}
-							
-							{% with messages = get_flashed_messages() %} 
-							{% if messages %}
-							<ul>
-								{% for message in messages %}
-								<li>{{ message }}</li> 
+								<!--Team Name input-->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="name">Team Name</label>
+									<div class="col-md-9">
+										{% if team %}
+							 			{{form.teamname(value =team.name,id="teamname", class="form-control")}}
+							 			{%else %}
+							 			{{form.teamname(value="",id="teamname", class="form-control", placeholder="Team name")}}
+										{%endif%} 
+							 			<span style="color: red">
+							 	        {% for error in form.errors.teamname %}<br>
+							 	        	{{ error }}
+							 	        {% endfor %}</span>
+									</div>
+								</div>
+								
+								<!-- Member List -->
+								{% for i in range(n) %}
+								<div class="form-group">
+									<label class="col-md-3 control-label">
+									Member {{i+1}}
+									</label>
+									<div class="col-md-9">
+									{% if team and i < team.members.count() %}
+									{{form.member(value=team.members[i].member_name, class="form-control")}} 
+									{%else %}
+									{{form.member(value="", class="form-control", placeholder="Member name")}}
+									{%endif%}
+									</div>
+									{% for error in form.errors.description %} <span
+										style="color: red"> {{ error }} </span> {% endfor %}
+								</div>
 								{% endfor %}
-							</ul>
-							{% endif %} 
-							{% endwith %}						
-						
-						 </strong></h1>
-				</div>
-				<div class="panel-body">
-					
 
-<!-- Team Name -->
-
-	
-    <div class="row">
-        <div class="form-group">
-    		<div class="input-group input-group-option col-xs-5" style="padding: 15px;">
-    		<form action="" method="post">
- 			{{form.hidden_tag()}}
-			<h3>Team Name</h3>
-			{% if team %}
- 			{{form.teamname(value =team.name,id="teamname", class="form-control input-sm", placeholder="Team name")}}
- 			{%else %}
- 			{{form.teamname(value="",id="teamname", class="form-control input-sm", placeholder="Team name")}}
-			{%endif%} 
- 			<span style="color: red">
- 	        {% for error in form.errors.teamname %}<br>
- 	        	{{ error }}
- 	        {% endfor %}</span> <br>
-
-
-     <p>
-		{% for i in range(n) %}
-			Member {{i+1}} <br> 
-			{% if team and i < team.members.count() %}
-			{{form.member(value=team.members[i].member_name)}} 
-			{%else %}
-			{{form.member(value="")}}
-			{%endif%}<br>
-		{% endfor %}
-		</p>
-    		</div>
-    	</div>
-    </div>
-            <!-- Form actions -->
-            <div class="form-group">
-              <div class="col-md-12 text-center">
-                <input type="submit" class="btn btn-primary btn-lg" value="Save">
-                </form>
-              </div>
-            </div>
-          </fieldset>
-          </form>
+								<!-- Form actions -->
+								<div class="form-group">
+									<div class="col-md-12 text-right">
+										<button type="submit" class="btn btn-primary btn-lg">Save</button>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</center>	
 </body>
 </html>

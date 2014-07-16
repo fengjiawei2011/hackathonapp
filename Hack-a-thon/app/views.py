@@ -91,7 +91,7 @@ def edit_team(team_id):
         
         sqldb.session.commit()
         
-        return redirect(url_for('event', event_id = team.event.id))
+        return redirect(url_for('team', team_id = team_id))
     
     return render_template("team.html",
                            team = team,
@@ -148,7 +148,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         add_user(form.first_name.data, form.last_name.data, form.username.data, form.password.data)
-        flash('OKAY')
+        return redirect(url_for('login'))
     return render_template("register.html", form = form)
 
 
@@ -176,7 +176,6 @@ def create_event():
 def edit_event(event_id):
     user = g.user
     form = EventForm()
-    print(event_id)
     event = Event.query.get(event_id)
     #assert event != null, "SHIT"
     if not user.is_admin():
@@ -195,7 +194,7 @@ def edit_event(event_id):
         return redirect(url_for('event', event_id = event_id))
     if event == None:
         # TODO NOT WORKING
-        print("Event not found!")
+        return "Event not found!"
        
     return render_template("edit_event.html", event = event, form = form)
 

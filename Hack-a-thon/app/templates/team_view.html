@@ -1,57 +1,39 @@
 <html>
 <head>
-<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
-<!-- <script src="{ url_for('static', filename = 'js/jquery.min.js') }}"></script> -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-
-<!-- Latest compiled and minified JavaScript -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body  style="background-color: rgb(220, 220, 220)">
 {% include 'navbar.html' %}
 <br>
 <br>
 <center>
 <div class="container">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<div class="well well-sm">
-
-									<h3>Team Name : {{team.name}}</h3>
-					</div>
-				</div>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="well well-sm">
+				<table><tr height=50px ><h3><th>Team</th><td><b>{{team.name}}</b></td></h3>
+				</tr><tr><th style="padding-right: 15px" valign='top'>Members </th>
+				<td>
+				{% for m in team.members %}
+					{{m.member_name}}<br>
+				{% endfor %}</td></tr></table>
 			</div>
+		</div>
+	</div>
 
-	{% with messages = get_flashed_messages() %} {% if messages %}
-	<ul>
-		{% for message in messages %}
-		<li>{{ message }}</li> {% endfor %}
-	</ul>
-	{% endif %} {% endwith %}
-
-	<h3> Members: <h3>
-	{% for m in team.members %}
-		<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<div class="well well-sm">
-						{{m.member_name}}
-					</div>
-				</div>
-			</div>
-	{% endfor %}
-	</p>
 	{% if user.id == team.user_id %}
+	
+	<span style="float:right; margin-right:26%">
 	<form action="" method="post">
-		<input type="submit" value="Delete">
-	</form>
+		<input class="btn btn-default" type="submit" value="Delete">
+	</form></span>
+	<span style="float:right; margin-right:10px">
 	<form action={{url_for('edit_team', team_id=team.id)}}>
-    <input type="submit" value="Edit">
-	</form>
+    	<input class="btn btn-default" type="submit" value="Edit">
+	</form></span>
+	
 	{% endif %}
 	
 </center>

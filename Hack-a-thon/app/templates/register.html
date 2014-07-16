@@ -17,7 +17,7 @@ body{
     background-color: #525252;
 }
 .centered-form{
-	margin-top: 60px;
+	margin-top: 30px;
 }
 
 .centered-form .panel{
@@ -35,48 +35,6 @@ body{
 </script>
 </head>
 <body>
-	<!-- <h1>Register</h1>
-
-	{% with messages = get_flashed_messages() %} {% if messages %}
-	<ul>
-		{% for message in messages %}
-		<li>{{ message }}</li> {% endfor %}
-	</ul>
-	{% endif %} {% endwith %}
-
-	<form action="" method="post" name="register">
-		{{form.hidden_tag()}}
-		<p>
-			Frist Name<br> {{form.first_name(size=50)}}<br> {% for error
-			in form.errors.first_name %} <span style="color: red">{{ error
-				}}</span> {% endfor %}
-		</p>
-		<p>
-			Last Name<br> {{form.last_name(size=50)}}<br> {% for error
-			in form.errors.last_name %} <span style="color: red">{{ error
-				}}</span> {% endfor %}
-		</p>				
-		<p>
-			User Name<br> {{form.username(size=50)}}<br> {% for error
-			in form.errors.username %} <span style="color: red">{{ error
-				}}</span> {% endfor %}
-		</p>
-		<p>
-			Password<br> {{form.password(size=50)}}<br>
-			{% for error in form.errors.password %} <span style="color: red">{{
-				error }}</span> {% endfor %}
-		</p>
-		<p>
-			Retype Password<br> {{form.password2(size=50)}}<br>
-			{% for error in form.errors.password2 %} <span style="color: red">{{
-				error }}</span> {% endfor %}
-		</p>
-		<p>
-			<input type="submit" value="Register">
-			<input type="reset" value="Reset">
-		</p>
-		<a href="/login"> Already Have an Login? Click Here to Login </a>
-	</form> -->
 	<div class="container">
 		<div id="signupcontainer" class="row centered-form">
         <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
@@ -105,7 +63,7 @@ body{
 			    			</div>
 
 			    			<div class="form-group">
-			    				{{form.username(type="email" ,id="email" ,class="form-control input-sm" ,placeholder="Username")}}
+			    				{{form.username(type="email" ,id="email" ,class="form-control input-sm" ,placeholder="Email")}}
 			    				<!-- <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address"> -->
 			    				{% for error in form.errors.username %} <span style="color: red">{{ error }}</span> {% endfor %}
 			    			</div>
@@ -128,8 +86,8 @@ body{
 			    			</div>
 			    			
 			    			<input type="submit" value="Register" class="btn btn-info btn-block">
-			    		
 			    		</form>
+			    		<a href="{{url_for('login')}}" class="btn btn-info btn-block">Sign In</a>
 						{% with messages = get_flashed_messages() %} {% if messages %}
 						<ul>
 							{% for message in messages %}

@@ -4,9 +4,8 @@ Created on Jul 2, 2014
 @author: lan_xu, alvin_yau
 '''
 from flask.ext.wtf import Form
-from wtforms import TextField, PasswordField, DateTimeField, DateField, IntegerField, validators
+from wtforms import TextField, PasswordField, DateTimeField, IntegerField, validators
 from wtforms.validators import Required, Email
-from datetime import date
 from wtforms.validators import ValidationError
 from models import User
 
@@ -26,7 +25,7 @@ class RegisterForm(Form):
         if form.password.data != form.password2.data: 
             raise ValidationError('Password Must Match!')
     
-    username = TextField('username', [Required('Email is required'), validators.Email(), unique_email])
+    username = TextField('username', [Required('Email is required'), Email(), unique_email])
     password = PasswordField('password', validators = [Required('Password is required')])
     password2 = PasswordField('password2', validators = [Required('Please Retype your password'), retype_password_validate])
     first_name = TextField('first_name', validators = [Required('First name is required')])
@@ -40,8 +39,8 @@ class TeamForm(Form):
 # @author alvin_yau
 class EventForm(Form):
     name = TextField('name', [Required('Name is required')])
-    starttime = TextField('name', [Required("Start time must be in Date Time Format. format='%Y-%m-%d %H:%M:%S'")])
-    endtime = TextField('name', [Required("End time Must be in Date Time Format format='%Y-%m-%d %H:%M:%S'")])
+    starttime = DateTimeField('name', format='%Y-%m-%dT%H:%M', validators = [Required("Start time is required")])
+    endtime = DateTimeField('name', format='%Y-%m-%dT%H:%M', validators = [Required("End time is required")])
     location = TextField('name', [Required('Location is required')])
     max_team = IntegerField('name', [Required('Max Team must be an integer.')])
     max_member_per_team = IntegerField('max_member_per_team', [Required('Max Number Per Team must be an integer')])
